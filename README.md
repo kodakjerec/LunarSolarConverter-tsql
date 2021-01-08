@@ -17,9 +17,9 @@ SELECT * FROM [LunarSolarConverter_LunarToSolar]('2021-01-15',0)
 ```
 
 # Installation
-1. create three function  
+1. create five function  
 LunarSolarConverter_GetBitInt  
 LunarSolarConverter_SolarFromInt  
 LunarSolarConverter_SolarToInt
-2. create stored-procedure  
-common_LunarSolarConverter
+LunarSolarConverter_SolarToLunar  
+LunarSolarConverter_LunarToSolar  
