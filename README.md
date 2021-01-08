@@ -6,13 +6,13 @@ based https://github.com/isee15/Lunar-Solar-Calendar-Converter
 # Useage
 ## Solar -> Lunar
 ```sql
-EXEC [common_LunarSolarConverter] 'SolarToLunar','2021-01-08'
+SELECT * FROM [LunarSolarConverter_SolarToLunar]('2021-01-08')
 --2020-11-25
 ```
 
 ## Lunar -> Solar
 ```sql
-EXEC [common_LunarSolarConverter] 'LunarToSolar','2021-01-15', 0
+SELECT * FROM [LunarSolarConverter_LunarToSolar]('2021-01-15',0)
 --2021-02-26
 ```
 
