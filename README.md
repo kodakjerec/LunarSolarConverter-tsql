@@ -20,6 +20,6 @@ SELECT * FROM [LunarSolarConverter_LunarToSolar]('2021-01-15',0)
 1. create five function  
 LunarSolarConverter_GetBitInt  
 LunarSolarConverter_SolarFromInt  
-LunarSolarConverter_SolarToInt
+LunarSolarConverter_SolarToInt  
 LunarSolarConverter_SolarToLunar  
 LunarSolarConverter_LunarToSolar  
