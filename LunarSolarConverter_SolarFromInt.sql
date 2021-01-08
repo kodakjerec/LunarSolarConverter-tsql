@@ -1,7 +1,7 @@
 USE [seelove100]
 GO
 
-/****** Object:  UserDefinedFunction [dbo].[LunarSolarConverter_SolarFromInt]    Script Date: 2021/1/8 ¤U¤È 01:52:17 ******/
+/****** Object:  UserDefinedFunction [dbo].[LunarSolarConverter_SolarFromInt]    Script Date: 2021/1/8 ¤U¤È 03:07:10 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -19,11 +19,11 @@ CREATE FUNCTION [dbo].[LunarSolarConverter_SolarFromInt]
 (
 	@g bigint
 )
-RETURNS DATE
+RETURNS @solar Table (solarDay int, solarMonth int, solarYear int)
 AS
 BEGIN
 	-- Declare the return variable here
-	DECLARE @result date
+	DECLARE @result VARCHAR(20)
 
 	-- Add the T-SQL statements to compute the return value here
 	DECLARE @y int = (10000*@g + 14780)/3652425
@@ -39,9 +39,9 @@ BEGIN
 	DECLARE @dd int = @ddd - ((@mi*306 + 5)/10) + 1
 
 	-- Return the result of the function
-	SET @result = DATEFROMPARTS(@y,@mm,@dd)
+	INSERT INTO @solar VALUES (@dd,@mm,@y)
 
-	RETURN @result
+	RETURN
 END
 GO
 

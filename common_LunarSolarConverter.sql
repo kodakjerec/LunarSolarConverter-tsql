@@ -1,7 +1,7 @@
 USE [seelove100]
 GO
 
-/****** Object:  StoredProcedure [dbo].[common_LunarSolarConverter]    Script Date: 2021/1/8 下午 01:51:43 ******/
+/****** Object:  StoredProcedure [dbo].[common_LunarSolarConverter]    Script Date: 2021/1/8 下午 03:07:39 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -29,13 +29,11 @@ EXEC [common_LunarSolarConverter] 'LunarToSolar','2021-01-15', 0
 CREATE PROCEDURE [dbo].[common_LunarSolarConverter]
 	@CommandType varchar(20)	--類型
 	, @fromDate date			--日期
-	, @lunarisleap tinyint		--是否為閏月
+	, @lunarisleap tinyint = 0	--是否為閏月
 AS
 BEGIN
 	SET @CommandType = LOWER(@CommandType)
 	DECLARE @lunar Table (isleap tinyint, lunarDay int, lunarMonth int, lunarYear int)
-	DECLARE @solar Table (solarDay int, solarMonth int, solarYear int)
-	INSERT INTO @solar values (0,0,0)
 
 	-- function LunarSolarConverter() {
 	DECLARE @lunar_month_days Table ([Value] int, Seq bigint IDENTITY(0,1))
@@ -120,7 +118,7 @@ BEGIN
         DECLARE @m_1 int = (SELECT [dbo].[LunarSolarConverter_GetBitInt](@solar11_1, 4, 5)) --var m = this.GetBitInt(solar11, 4, 5);
         DECLARE @d_1 int = (SELECT [dbo].[LunarSolarConverter_GetBitInt](@solar11_1, 5, 0)) --var d = this.GetBitInt(solar11, 5, 0);
 		DECLARE @g bigint = (SELECT [dbo].[LunarSolarConverter_SolarToInt](@y_1,@m_1,@d_1) + @offset_1 - 1)
-        SELECT [dbo].[LunarSolarConverter_SolarFromInt](@g) AS 'SolarDate' --return this.SolarFromInt(this.SolarToInt(y, m, d) + offset - 1);
+        SELECT * FROM [dbo].[LunarSolarConverter_SolarFromInt](@g) --return this.SolarFromInt(this.SolarToInt(y, m, d) + offset - 1);
 	END
 
 	/* 
@@ -184,7 +182,7 @@ BEGIN
 		END --}
 
 		UPDATE @lunar SET lunarDay = @lunarD --lunar.lunarDay = lunarD;
-		SELECT DATEFROMPARTS((SELECT lunarYear FROM @lunar),(SELECT lunarMonth FROM @lunar),(SELECT lunarDay FROM @lunar)) AS 'LunarDate' --return lunar;
+		SELECT * FROM @lunar --return lunar;
 	END
 END
 GO
